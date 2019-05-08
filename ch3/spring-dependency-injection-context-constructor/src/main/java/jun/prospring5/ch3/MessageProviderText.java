@@ -4,8 +4,8 @@ public class MessageProviderText implements MessageProvider {
 
     private String message;
 
-    public MessageProviderText(String message) {
-        this.message = message;
+    public MessageProviderText(String message, int number) {
+        this.message = Integer.toString(number) + "." + message;
     }
 
     @Override

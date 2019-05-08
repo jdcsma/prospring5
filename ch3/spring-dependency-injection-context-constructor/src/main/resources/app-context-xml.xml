@@ -7,6 +7,9 @@
 
     <bean id="messageProvider" class="jun.prospring5.ch3.MessageProviderText">
         <constructor-arg value="Demo dependency injection with context constructor."/>
+        <constructor-arg type="int">
+            <value>1</value>
+        </constructor-arg>
     </bean>
 
     <bean id="messageRenderer" class="jun.prospring5.ch3.MessageRendererStandardOutput"
