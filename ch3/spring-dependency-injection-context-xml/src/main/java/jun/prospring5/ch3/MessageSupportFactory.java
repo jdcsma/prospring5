@@ -9,7 +9,7 @@ public class MessageSupportFactory {
 
         ApplicationContext appContext =
                 new ClassPathXmlApplicationContext(
-                        "app-context.xml");
+                        "app-context-xml.xml");
 
         MessageRenderer renderer = appContext.getBean(
                 "messageRenderer", MessageRenderer.class);
