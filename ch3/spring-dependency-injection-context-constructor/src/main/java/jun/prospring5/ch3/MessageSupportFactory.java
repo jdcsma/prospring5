@@ -1,14 +1,14 @@
 package jun.prospring5.ch3;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class MessageSupportFactory {
 
     public static MessageRenderer getMessageRenderer() {
 
         ApplicationContext appContext =
-                new ClassPathXmlApplicationContext(
+                new GenericXmlApplicationContext(
                         "app-context-xml.xml");
 
         MessageRenderer renderer = appContext.getBean(
