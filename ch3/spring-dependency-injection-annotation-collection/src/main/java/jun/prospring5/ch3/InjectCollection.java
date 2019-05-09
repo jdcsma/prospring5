@@ -1,5 +1,7 @@
 package jun.prospring5.ch3;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +22,9 @@ public class InjectCollection {
     @Resource(name="set")
     private Set set;
 
-    @Resource(name="list")
+//    @Resource(name="list")
+    @Autowired
+    @Qualifier("list")
     private List list;
 
     public void displayInfo() {
