@@ -1,12 +1,13 @@
 package jun.prospring5.ch3;
 
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ConcreteInjectBean implements InjectBean {
+public class ConcreteInjectBean2 implements InjectBean {
 
-    @Value("This is an injected bean by interface.")
+    @Value("This is an injected bean by name.")
     private String name;
 
     public String getName() {
@@ -19,7 +20,7 @@ public class ConcreteInjectBean implements InjectBean {
 
     @Override
     public String toString() {
-        return "ConcreteInjectBean{" +
+        return "ConcreteInjectBean2{" +
                 "name='" + name + '\'' +
                 '}';
     }

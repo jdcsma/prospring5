@@ -16,4 +16,11 @@
         </property>
     </bean>
 
+    <bean id="injectBean2" name="injectedBeanWithName" class="jun.prospring5.ch3.ConcreteInjectBean2" />
+    <bean id="targetBean2" class="jun.prospring5.ch3.TargetBean2">
+        <property name="injectedBean">
+            <ref bean="injectedBeanWithName"/>
+        </property>
+    </bean>
+
 </beans>
