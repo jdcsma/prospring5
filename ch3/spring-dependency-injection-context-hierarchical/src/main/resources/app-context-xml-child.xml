@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <bean id="stringHolder1" class="jun.prospring5.ch3.StringHolder"
+          p:number="1"
+          p:usage="name of bean: content1"
+          p:content-ref="content1"/>
+
+    <bean id="content2" class="java.lang.String" c:_0="childText"/>
+    <bean id="stringHolder2" class="jun.prospring5.ch3.StringHolder"
+          p:number="2"
+          p:usage="name of bean: content2"
+          p:content-ref="content2"/>
+
+    <bean id="stringHolder3" class="jun.prospring5.ch3.StringHolder"
+        p:number="3" p:usage="name of bean: content2">
+        <property name="content">
+            <ref parent="content2"/>
+        </property>
+    </bean>
+</beans>
