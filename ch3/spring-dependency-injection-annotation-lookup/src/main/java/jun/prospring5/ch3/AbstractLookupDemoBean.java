@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 public abstract class AbstractLookupDemoBean implements DemoBean {
 
     @Lookup("someObject")
-    public SomeObject getObject() {
-        return null;
-    }
+//    public SomeObject getObject() {
+//        return null;
+//    }
+    public abstract SomeObject getObject();
 
     @Override
     public void doSomething() {
