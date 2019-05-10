@@ -1,7 +1,6 @@
 package jun.prospring5.ch3;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class Main {
 
