@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jun.prospring5.ch2</groupId>
-    <artifactId>spring-app-context-xml</artifactId>
+    <artifactId>spring-dependency-injection-annotation-collection</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>spring-dependency-injection-annotation-collection</name>
