@@ -11,8 +11,7 @@ public class SingerWithJSR250 {
     private int age = INVALID_AGE;
 
     @PostConstruct
-    public void init() throws IllegalArgumentException {
-
+    private void init() throws Exception {
         System.out.println("Initializing bean:");
 
         if (this.name == null) {
