@@ -18,10 +18,10 @@ public class Main {
         getBean("singerThree", appContext);
     }
 
-    private static SingerWithInitMethod getBean(String beanName, ApplicationContext applicationContext) {
+    private static SingerWithInitializingBean getBean(String beanName, ApplicationContext applicationContext) {
 
         try {
-            SingerWithInitMethod bean = (SingerWithInitMethod) applicationContext.getBean(beanName);
+            SingerWithInitializingBean bean = (SingerWithInitializingBean) applicationContext.getBean(beanName);
             System.out.println(bean);
             return bean;
         } catch (BeanCreationException e) {

@@ -6,13 +6,13 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-lazy-init="true">
 
-    <bean id="singerOne" class="jun.prospring5.ch4.SingerWithInitMethod"
-          init-method="init" p:name="John Mayer" p:age="39"/>
+    <bean id="singerOne" class="jun.prospring5.ch4.SingerWithInitializingBean"
+          p:name="John Mayer" p:age="39"/>
 
-    <bean id="singerTwo" class="jun.prospring5.ch4.SingerWithInitMethod"
-          init-method="init" p:age="72"/>
+    <bean id="singerTwo" class="jun.prospring5.ch4.SingerWithInitializingBean"
+          p:age="72"/>
 
-    <bean id="singerThree" class="jun.prospring5.ch4.SingerWithInitMethod"
-          init-method="init" p:name="John Butler"/>
+    <bean id="singerThree" class="jun.prospring5.ch4.SingerWithInitializingBean"
+          p:name="John Butler"/>
 
 </beans>

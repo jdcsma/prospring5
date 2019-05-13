@@ -1,6 +1,8 @@
 package jun.prospring5.ch4;
 
-public class Singer {
+import org.springframework.beans.factory.InitializingBean;
+
+public class SingerWithInitializingBean implements InitializingBean {
 
     private static final String DEFAULT_NAME = "Eric Clapton";
     private static final int INVALID_AGE = Integer.MAX_VALUE;
@@ -8,7 +10,8 @@ public class Singer {
     private String name;
     private int age = INVALID_AGE;
 
-    public void init() {
+    @Override
+    public void afterPropertiesSet() throws IllegalArgumentException {
 
         System.out.println("Initializing bean:");
 
@@ -19,7 +22,7 @@ public class Singer {
         if (this.age == INVALID_AGE) {
             throw new IllegalArgumentException(
                     "You must set the age property of any beans of type " +
-                    Singer.class);
+                            SingerWithInitializingBean.class);
         }
     }
 
@@ -41,7 +44,7 @@ public class Singer {
 
     @Override
     public String toString() {
-        return "Singer{" +
+        return "SingerWithInitializingBean{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
