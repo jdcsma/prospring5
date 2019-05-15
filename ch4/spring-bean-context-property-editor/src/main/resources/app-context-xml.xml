@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:utl="http://www.springframework.org/schema/util"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util
@@ -12,9 +12,9 @@
           class="org.springframework.beans.factory.config.CustomEditorConfigurer"
           p:propertyEditorRegistrars-ref="propertyEditorRegistrarsList"/>
 
-    <utl:list id="propertyEditorRegistrarsList">
+    <util:list id="propertyEditorRegistrarsList">
         <bean class="jun.prospring5.ch4.PropertyEditorBean.CustomPropertyEditorRegistrar"/>
-    </utl:list>
+    </util:list>
 
     <bean id="buildInSample"
         class="jun.prospring5.ch4.PropertyEditorBean"
@@ -34,9 +34,9 @@
         p:url="https://spring.io/"
     />
 
-    <utl:list id="stringList">
+    <util:list id="stringList">
         <value>String member 1</value>
         <value>String member 2</value>
-    </utl:list>
+    </util:list>
 
 </beans>
