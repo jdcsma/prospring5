@@ -17,12 +17,4 @@
     <version>1.0-SNAPSHOT</version>
     <name>spring-bean-context-event-publish</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
-        </dependency>
-    </dependencies>
-
 </project>
