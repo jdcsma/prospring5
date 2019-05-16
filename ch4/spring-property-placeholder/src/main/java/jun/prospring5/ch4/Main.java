@@ -18,6 +18,7 @@ public class Main {
 
         System.out.println("application name :" + appProperty.getApplicationName());
         System.out.println("user home: " + appProperty.getUserHome());
+        System.out.println("java class path: " + appProperty.getClassPath());
 
         appContext.close();
     }
