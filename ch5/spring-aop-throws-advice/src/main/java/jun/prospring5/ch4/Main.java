@@ -1,7 +1,6 @@
 package jun.prospring5.ch4;
 
 import org.springframework.aop.framework.ProxyFactory;
-import org.springframework.cglib.proxy.Proxy;
 
 public class Main {
 
