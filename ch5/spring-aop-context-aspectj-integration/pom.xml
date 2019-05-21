@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>jun.prospring5</groupId>
+        <artifactId>parent-pom-ch5</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../maven-parent/parent-pom-ch5.xml</relativePath>
+    </parent>
+
+    <groupId>jun.prospring5.ch5</groupId>
+    <artifactId>spring-aop-context-aspectj-integration</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>spring-aop-context-aspectj-integration</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!--
+            Use 1.8.13 to avoid bellow warning:
+                bad version number found in D:\apache-maven-3.5.4\m2\repository\org\aspectj\aspectjrt\1.9.4\aspectjrt-1.9.4.jar
+                expected 1.8.13 found 1.9.4
+        -->
+        <aspectj.version>1.8.13</aspectj.version>
+        <aspectj.maven.plugin.version>1.11</aspectj.maven.plugin.version>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <!-- IMPORTANT
+                        - use incremental compilation in Maven Compiler Plugin 3.1 (attention,
+                          the switch is reversed, which is probably a bug) and
+                        - assign execution phase "process-sources" to AspectJ Maven Plugin 1.6.
+                    -->
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>${aspectj.maven.plugin.version}</version>
+                <configuration>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <Xlint>ignore</Xlint>
+                    <complianceLevel>${java.version}</complianceLevel>
+                    <encoding>UTF-8</encoding>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- IMPORTANT -->
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
