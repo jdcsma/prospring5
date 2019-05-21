@@ -6,6 +6,7 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,11 +20,13 @@ public class ProxyFactoryBeanConfiguration {
 
     @Bean
     public Advice advice() {
-        return new AuditAdvice();
+        Advice advice = new AuditAdvice();
+        return advice;
     }
 
     @Bean
-    public Advisor advisor(Advice advice) {
+    public Advisor advisor(
+            @Qualifier("advice") Advice advice) {
 
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("execution(* sing*(..))");
@@ -58,19 +61,21 @@ public class ProxyFactoryBeanConfiguration {
     }
 
     @Bean
-    public Documentarist documentaristOne(GrammyGuitarist proxyOne) {
+    public Documentarist documentaristOne(
+            @Qualifier("proxyOne") GrammyGuitarist proxy) {
 
         Documentarist documentarist = new Documentarist();
-        documentarist.setGuitarist(proxyOne);
+        documentarist.setGuitarist(proxy);
 
         return documentarist;
     }
 
     @Bean
-    public Documentarist documentaristTwo(GrammyGuitarist proxyTwo) {
+    public Documentarist documentaristTwo(
+            @Qualifier("proxyTwo") GrammyGuitarist proxy) {
 
         Documentarist documentarist = new Documentarist();
-        documentarist.setGuitarist(proxyTwo);
+        documentarist.setGuitarist(proxy);
 
         return documentarist;
     }
