@@ -16,5 +16,6 @@
     <artifactId>spring-aop-control-flow-pointcut</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>spring-aop-control-flow-pointcut</name>
+    <packaging>jar</packaging>
 
 </project>

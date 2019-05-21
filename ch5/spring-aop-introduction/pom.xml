@@ -16,5 +16,6 @@
     <artifactId>spring-aop-introduction</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>spring-aop-introduction</name>
+    <packaging>jar</packaging>
 
 </project>

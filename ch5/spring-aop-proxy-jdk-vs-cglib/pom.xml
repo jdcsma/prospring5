@@ -16,5 +16,6 @@
     <artifactId>spring-aop-proxy-jdk-vs-cglib</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>spring-aop-proxy-jdk-vs-cglib</name>
+    <packaging>jar</packaging>
 
 </project>
