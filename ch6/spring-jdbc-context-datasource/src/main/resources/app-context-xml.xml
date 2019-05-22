@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="#{jdbc.databaseDriverClassName}"
+          p:url="#{jdbc.databaseUrl}"
+          p:username="#{jdbc.databaseUsername}"
+          p:password="#{jdbc.databasePassword}"/>
+
+    <util:properties id="jdbc" location="classpath:jdbc.properties"/>
+
+    <!--
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${databaseDriverClassName}"
+          p:url="${databaseUrl}"
+          p:username="${databaseUsername}"
+          p:password="${databasePassword}"/>
+
+    <context:property-placeholder location="jdbc.properties"/>
+    -->
+
+</beans>
