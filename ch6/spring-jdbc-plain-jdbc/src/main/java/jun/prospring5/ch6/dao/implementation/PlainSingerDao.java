@@ -1,12 +1,11 @@
-package jun.prospring5.ch5.dao.implementation;
+package jun.prospring5.ch6.dao.implementation;
 
-import jun.prospring5.ch5.dao.SingerDao;
-import jun.prospring5.ch5.entity.Album;
-import jun.prospring5.ch5.entity.Singer;
+import jun.prospring5.ch6.dao.SingerDao;
+import jun.prospring5.ch6.entity.Album;
+import jun.prospring5.ch6.entity.Singer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

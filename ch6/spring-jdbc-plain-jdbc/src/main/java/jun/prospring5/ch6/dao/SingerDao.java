@@ -1,6 +1,6 @@
-package jun.prospring5.ch5.dao;
+package jun.prospring5.ch6.dao;
 
-import jun.prospring5.ch5.entity.Singer;
+import jun.prospring5.ch6.entity.Singer;
 
 import java.util.List;
 

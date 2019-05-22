@@ -1,8 +1,8 @@
-package jun.prospring5.ch5;
+package jun.prospring5.ch6;
 
-import jun.prospring5.ch5.dao.SingerDao;
-import jun.prospring5.ch5.dao.implementation.PlainSingerDao;
-import jun.prospring5.ch5.entity.Singer;
+import jun.prospring5.ch6.dao.SingerDao;
+import jun.prospring5.ch6.dao.implementation.PlainSingerDao;
+import jun.prospring5.ch6.entity.Singer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
