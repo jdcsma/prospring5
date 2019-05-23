@@ -11,7 +11,7 @@
  Target Server Version : 50640
  File Encoding         : 65001
 
- Date: 22/05/2019 16:22:00
+ Date: 23/05/2019 17:02:52
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `album`  (
   PRIMARY KEY (`id`, `singer_id`) USING BTREE,
   UNIQUE INDEX `UK_SINGER_ALBUM_1`(`singer_id`, `title`) USING BTREE,
   CONSTRAINT `FK_ALBUM` FOREIGN KEY (`singer_id`) REFERENCES `singer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of album
@@ -47,15 +47,16 @@ CREATE TABLE `singer`  (
   `first_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `birth_date` date NOT NULL,
+  `is_death` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_SINGER_1`(`first_name`, `last_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of singer
 -- ----------------------------
-INSERT INTO `singer` VALUES (1, 'John', 'Mayer', '1977-10-16');
-INSERT INTO `singer` VALUES (2, 'Eric', 'Clapton', '1945-03-30');
-INSERT INTO `singer` VALUES (3, 'John', 'Butler', '1975-04-01');
+INSERT INTO `singer` VALUES (1, 'John', 'Mayer', '1977-10-16', 0);
+INSERT INTO `singer` VALUES (2, 'Eric', 'Clapton', '1945-03-30', 0);
+INSERT INTO `singer` VALUES (3, 'John', 'Butler', '1975-04-01', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
