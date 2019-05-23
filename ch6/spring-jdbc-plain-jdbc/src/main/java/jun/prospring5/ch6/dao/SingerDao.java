@@ -1,5 +1,6 @@
 package jun.prospring5.ch6.dao;
 
+import jun.prospring5.ch6.entity.Album;
 import jun.prospring5.ch6.entity.Singer;
 
 import java.util.List;
@@ -8,7 +9,11 @@ public interface SingerDao {
 
     List<Singer> findAll();
 
-    Singer findByFirstName(String firstName);
+    List<Singer> findAllWithDetail();
+
+    List<Album> findAlbums(Long singerId);
+
+    Singer findById(Long id);
 
     String findFirstNameById(Long id);
 
@@ -19,9 +24,4 @@ public interface SingerDao {
     void update(Singer singer);
 
     void delete(Long id);
-
-    List<Singer> findAllWithDetail();
-
-    void insertWithDetail(Singer singer);
-
 }

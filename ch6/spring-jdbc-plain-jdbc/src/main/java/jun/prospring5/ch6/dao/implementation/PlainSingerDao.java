@@ -51,7 +51,28 @@ public class PlainSingerDao implements SingerDao {
     }
 
     @Override
-    public Singer findByFirstName(String firstName) {
+    public List<Album> findAlbums(Long singerId) {
+
+        List<Album> albums = new ArrayList<>();
+
+        try (Connection connection = this.getConnection()) {
+
+            PreparedStatement statement =
+                    connection.prepareStatement(
+                            "SELECT * FROM `album` WHERE singer_id=?");
+            statement.setLong(1, singerId);
+
+            this.fetchAlbums(statement.executeQuery(), albums);
+            statement.close();
+        } catch (SQLException e) {
+            logger.error("Problem when executing SELECT!", e);
+        }
+
+        return albums;
+    }
+
+    @Override
+    public Singer findById(Long id) {
 
         Singer singer = null;
 
@@ -59,12 +80,11 @@ public class PlainSingerDao implements SingerDao {
 
             PreparedStatement statement =
                     connection.prepareStatement(
-                            "SELECT * FROM `singer` WHERE `first_name`=?");
-            statement.setString(1, firstName);
+                            "SELECT * FROM `singer` WHERE id=?");
+            statement.setLong(1, id);
 
             singer = this.fetchSinger(statement.executeQuery());
             statement.close();
-
         } catch (SQLException e) {
             logger.error("Problem when executing SELECT!", e);
         }
@@ -124,6 +144,9 @@ public class PlainSingerDao implements SingerDao {
     public void insert(Singer singer) {
         try (Connection connection = this.getConnection()) {
             this.insertSinger(connection, singer);
+            for (Album album : singer.getAlbums()) {
+                this.insertAlbum(connection, singer, album);
+            }
         } catch (SQLException e) {
             logger.error("Problem when executing INSERT!", e);
         }
@@ -134,10 +157,14 @@ public class PlainSingerDao implements SingerDao {
         try (Connection connection = this.getConnection()) {
             PreparedStatement statement =
                     connection.prepareStatement(
-                            "UPDATE `singer` SET `first_name`=?,`last_name`=?,`birth_date`=?");
+                            "UPDATE `singer` " +
+                                    "SET `first_name`=?,`last_name`=?,`birth_date`=?,`is_death`=? " +
+                                    "WHERE `id`=?");
             statement.setString(1, singer.getFirstName());
             statement.setString(2, singer.getLastName());
             statement.setDate(3, singer.getBirthDate());
+            statement.setBoolean(4, singer.isDeath());
+            statement.setLong(5, singer.getId());
 
             statement.execute();
             statement.close();
@@ -149,14 +176,23 @@ public class PlainSingerDao implements SingerDao {
     @Override
     public void delete(Long id) {
         try (Connection connection = this.getConnection()) {
-            PreparedStatement statement =
-                    connection.prepareStatement(
-                            "DELETE FROM `singer` WHERE `id`=?");
-            statement.setLong(1, id);
-            statement.execute();
-            statement.close();
+
+            try (PreparedStatement statement =
+                         connection.prepareStatement(
+                                 "DELETE FROM `album` WHERE `singer_id`=?")) {
+                statement.setLong(1, id);
+                statement.execute();
+            }
+
+            try (PreparedStatement statement =
+                         connection.prepareStatement(
+                                 "DELETE FROM `singer` WHERE `id`=?")) {
+                statement.setLong(1, id);
+                statement.execute();
+            }
+
         } catch (SQLException e) {
-            logger.error("Problem when executing SELECT!", e);
+            logger.error("Problem when executing DELETE!", e);
         }
     }
 
@@ -176,6 +212,7 @@ public class PlainSingerDao implements SingerDao {
                 PreparedStatement statement =
                         connection.prepareStatement(
                                 "SELECT * FROM `album` WHERE `singer_id`=?;");
+                statement.setLong(1, singer.getId());
 
                 this.fetchAlbums(statement.executeQuery(),
                         singer.getAlbums());
@@ -189,36 +226,20 @@ public class PlainSingerDao implements SingerDao {
         return singers;
     }
 
-    @Override
-    public void insertWithDetail(Singer singer) {
-        try (Connection connection = this.getConnection()) {
-            this.insertSinger(connection, singer);
-
-            if (singer.getAlbums().size() == 0) {
-                return;
-            }
-
-            for (Album album : singer.getAlbums()) {
-                this.insertAlbum(connection, album);
-            }
-
-        } catch (SQLException e) {
-            logger.error("Problem when executing INSERT!", e);
-        }
-    }
-
     private void insertSinger(
             Connection connection, Singer singer)
             throws SQLException {
 
         PreparedStatement statement =
                 connection.prepareStatement(
-                        "INSERT INTO `singer` (`first_name`, " +
-                                "`last_name`, `birth_date`) VALUES (?,?,?)",
+                        "INSERT INTO `singer` (`first_name`," +
+                                "`last_name`,`birth_date`,`is_death`) " +
+                                "VALUES (?,?,?,?)",
                         Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, singer.getFirstName());
         statement.setString(2, singer.getLastName());
         statement.setDate(3, singer.getBirthDate());
+        statement.setBoolean(4, singer.isDeath());
 
         statement.execute();
         ResultSet resultSet = statement.getGeneratedKeys();
@@ -229,11 +250,12 @@ public class PlainSingerDao implements SingerDao {
     }
 
     private void insertAlbum(
-            Connection connection, Album album)
+            Connection connection, Singer singer, Album album)
             throws SQLException {
+        album.setSingerId(singer.getId());
         PreparedStatement statement =
                 connection.prepareStatement(
-                        "INSERT INTO `ablum` (`singer_id`, " +
+                        "INSERT INTO `album` (`singer_id`, " +
                                 "`title`, `release_date`) VALUES (?,?,?)",
                         Statement.RETURN_GENERATED_KEYS);
         statement.setLong(1, album.getSingerId());
@@ -269,6 +291,7 @@ public class PlainSingerDao implements SingerDao {
             singer.setFirstName(resultSet.getString("first_name"));
             singer.setLastName(resultSet.getString("last_name"));
             singer.setBirthDate(resultSet.getDate("birth_date"));
+            singer.setDeath(resultSet.getBoolean("is_death"));
         }
 
         return singer;

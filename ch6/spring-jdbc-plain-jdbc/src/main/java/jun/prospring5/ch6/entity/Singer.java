@@ -13,6 +13,7 @@ public class Singer implements Serializable {
     private String lastName;
     private Date birthDate;
     private List<Album> albums;
+    private boolean isDeath;
 
     public Long getId() {
         return id;
@@ -57,6 +58,20 @@ public class Singer implements Serializable {
         this.albums = albums;
     }
 
+    public boolean isDeath() {
+        return isDeath;
+    }
+
+    public void setDeath(boolean death) {
+        isDeath = death;
+    }
+
+    public void addAlbum(Album album) {
+        if (album != null) {
+            getAlbums().add(album);
+        }
+    }
+
     @Override
     public String toString() {
         return "Singer{" +
@@ -64,6 +79,7 @@ public class Singer implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
+                ", isDeath=" + isDeath +
                 '}';
     }
 }
