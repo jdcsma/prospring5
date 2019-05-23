@@ -13,7 +13,6 @@ import java.sql.Driver;
 
 @Configuration
 @PropertySource("classpath:jdbc.properties")
-@ImportResource(locations = {"classpath:app-context-xml.xml"})
 public class DataSourceConfiguration {
 
     @Value("${databaseDriverClassName}")
