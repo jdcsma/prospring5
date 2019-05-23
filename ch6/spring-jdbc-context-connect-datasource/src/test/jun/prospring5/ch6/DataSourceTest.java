@@ -1,12 +1,10 @@
 package jun.prospring5.ch6;
 
-import jun.prospring5.ch6.configuration.DataSourceConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import javax.sql.DataSource;
@@ -17,27 +15,25 @@ import java.sql.SQLException;
 
 public class DataSourceTest {
 
-    private static Logger logger =
-            LoggerFactory.getLogger(DataSourceTest.class);
-
     @Test
-    public void dataSourceXml() {
-        GenericXmlApplicationContext appContext =
-                new GenericXmlApplicationContext();
-        appContext.load("classpath:app-context-xml.xml");
-        appContext.refresh();
-
-        dataSourceTest(appContext);
+    public void dataSourceXml_01() {
+        dataSourceXml("classpath:app-context-xml-01.xml");
     }
 
     @Test
-    public void dataSourceAnnotation() {
+    public void dataSourceXml_02() {
+        dataSourceXml("classpath:app-context-xml-02.xml");
+    }
 
-        AnnotationConfigApplicationContext appContext =
-                new AnnotationConfigApplicationContext(
-                        DataSourceConfiguration.class);
+    public void dataSourceXml(String fileXml) {
+        GenericXmlApplicationContext appContext =
+                new GenericXmlApplicationContext();
+        appContext.load(fileXml);
+        appContext.refresh();
 
         dataSourceTest(appContext);
+
+        appContext.close();
     }
 
     private void dataSourceTest(ApplicationContext appContext) {
