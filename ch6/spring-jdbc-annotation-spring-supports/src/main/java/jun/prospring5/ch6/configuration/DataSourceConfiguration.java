@@ -89,13 +89,6 @@ public class DataSourceConfiguration {
         return initializer;
     }
 
-    @Bean
-    public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource) {
-        NamedParameterJdbcTemplate jdbcTemplate =
-                new NamedParameterJdbcTemplate(dataSource);
-        return jdbcTemplate;
-    }
-
     @Bean("jdbcSingerDao")
     public SingerDao singerDao() {
         JdbcSingerDao jdbcSingerDao = new JdbcSingerDao();
