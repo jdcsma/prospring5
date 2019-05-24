@@ -74,6 +74,23 @@ public class DataSourceTest {
         List<Singer> singersWithDetail = singerDao.findAllWithDetail();
         Assert.isTrue(singers.size() == singersWithDetail.size(),
                 "singers.size() != singersWithDetail.size()");
+
+        for (int i = 0; i < singersWithDetail.size(); ++i) {
+            Singer aSinger = singers.get(i);
+            Singer bSinger = singersWithDetail.get(i);
+
+            Assert.isTrue(aSinger.getId() == bSinger.getId(),
+                    "aSinger.getId() != bSinger.getId()");
+            Assert.isTrue(StringUtils.equals(
+                    aSinger.getFirstName(), bSinger.getFirstName()),
+                    "aSinger.getFirstName() != bSinger.getFirstName()");
+            Assert.isTrue(StringUtils.equals(
+                    aSinger.getLastName(), bSinger.getLastName()),
+                    "aSinger.getLastName() != bSinger.getLastName()");
+            Assert.isTrue(aSinger.getBirthDate().equals(bSinger.getBirthDate()),
+                    "aSinger.getBirthDate() != bSinger.getBirthDate()");
+        }
+
         for (Singer singer : singersWithDetail) {
 
             Singer found = singerDao.findById(singer.getId());
