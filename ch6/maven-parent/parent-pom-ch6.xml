@@ -9,34 +9,13 @@
         <groupId>jun.prospring5</groupId>
         <artifactId>parent-pom</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../maven-parent/parent-pom.xml</relativePath>
+        <relativePath>../../maven-parent/parent-pom-spring-jdbc.xml</relativePath>
     </parent>
 
     <groupId>jun.prospring5</groupId>
     <artifactId>parent-pom-ch6</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
