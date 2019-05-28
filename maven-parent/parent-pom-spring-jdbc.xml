@@ -18,6 +18,7 @@
     <packaging>pom</packaging>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
