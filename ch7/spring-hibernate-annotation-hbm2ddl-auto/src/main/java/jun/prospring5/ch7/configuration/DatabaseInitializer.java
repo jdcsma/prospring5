@@ -61,6 +61,13 @@ public class DatabaseInitializer {
                 .build());
         singers.add(singer);
 
+        singer.addInstrument(new InstrumentBuilder()
+                .setInstrumentId("Guitar")
+                .build());
+        singer.addInstrument(new InstrumentBuilder()
+                .setInstrumentId("Piano")
+                .build());
+
         singer = new SingerBuilder()
                 .setFirstName("Eric")
                 .setLastName("Clapton")
@@ -74,6 +81,10 @@ public class DatabaseInitializer {
                         new GregorianCalendar(1994, 9, 13)
                                 .getTime().getTime()))
                 .build());
+        singer.addInstrument(new InstrumentBuilder()
+                .setInstrumentId("Guitar")
+                .build());
+
         singers.add(singer);
 
         singers.add(new SingerBuilder()
