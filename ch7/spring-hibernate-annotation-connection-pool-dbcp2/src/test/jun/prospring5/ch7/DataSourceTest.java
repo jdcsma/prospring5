@@ -43,41 +43,6 @@ public class DataSourceTest {
         singerDao = appContext.getBean("singerDao", SingerDao.class);
     }
 
-//    @Test
-//    public void dbcp2Test() {
-//
-//        SessionFactory sessionFactory =
-//                (SessionFactory) appContext.getBean("sessionFactory");
-//
-//        Session session = null;
-//        Transaction transaction = null;
-//
-//        try {
-//            session = sessionFactory.openSession();
-//            transaction = session.beginTransaction();
-////            transaction.begin();
-//
-//            Instrument instrument =
-//                    new InstrumentBuilder()
-//                            .setInstrumentId("Drums")
-//                            .build();
-//
-//            session.save(instrument);
-//
-//            transaction.commit();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            if (transaction != null) {
-//                transaction.rollback();
-//            }
-//        } finally {
-//            if (session != null) {
-//                session.close();
-//            }
-//        }
-//    }
-
     @Test
     public void jdbcTest() {
 

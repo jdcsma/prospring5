@@ -29,14 +29,14 @@ public class DatabaseInitializer {
 
         logger.info("Starting database initialization ...");
 
-        Instrument[] instruments = new Instrument[]{
-                new InstrumentBuilder().setInstrumentId("Drums").build(),
-                new InstrumentBuilder().setInstrumentId("Guitar").build(),
-                new InstrumentBuilder().setInstrumentId("Piano").build(),
-                new InstrumentBuilder().setInstrumentId("Synthesizer").build(),
-                new InstrumentBuilder().setInstrumentId("Voice").build()
-        };
-        saveToDB(instruments, i -> instrumentDao.save(i));
+        List<Instrument> instruments =
+                new ArrayList<>(Arrays.asList(
+                        new InstrumentBuilder().setInstrumentId("Drums").build(),
+                        new InstrumentBuilder().setInstrumentId("Guitar").build(),
+                        new InstrumentBuilder().setInstrumentId("Piano").build(),
+                        new InstrumentBuilder().setInstrumentId("Synthesizer").build(),
+                        new InstrumentBuilder().setInstrumentId("Voice").build()));
+        instruments.forEach(i -> instrumentDao.save(i));
 
         List<Singer> singers = new ArrayList<>();
 
@@ -93,14 +93,8 @@ public class DatabaseInitializer {
                                 .getTime().getTime()))
                 .build());
 
-        saveToDB(singers.toArray(new Singer[singers.size()]), s -> singerDao.save(s));
+        singers.forEach(s -> singerDao.save(s));
 
         logger.info("Database initialization finished.");
-    }
-
-    private <T> void saveToDB(T[] elements, Consumer<T> consumer) {
-        Arrays.stream(elements)
-                .forEach(i -> consumer.accept(i));
-
     }
 }

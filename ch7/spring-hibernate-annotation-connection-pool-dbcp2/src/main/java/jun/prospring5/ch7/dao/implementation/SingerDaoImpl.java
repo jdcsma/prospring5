@@ -10,14 +10,16 @@ import java.util.List;
 @Transactional
 @Repository("singerDao")
 public class SingerDaoImpl
-        extends TransactionDaoSupports
+        extends AbstractDaoImpl
         implements SingerDao {
 
     @Override
     @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     public List<Singer> findAll() {
-        return getSession().createQuery("FROM Singer s").list();
+        return getSession()
+                .createQuery("FROM Singer s")
+                .list();
     }
 
     @Override
@@ -41,11 +43,12 @@ public class SingerDaoImpl
 
     @Override
     public Singer save(Singer singer) {
-        return (Singer) super.saveToDB(singer);
+        getSession().saveOrUpdate(singer);
+        return singer;
     }
 
     @Override
     public void delete(Singer singer) {
-        super.deleteFromDB(singer);
+        getSession().delete(singer);
     }
 }

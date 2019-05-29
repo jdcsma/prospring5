@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository("instrumentDao")
 public class InstrumentDaoImpl
-        extends TransactionDaoSupports
-        implements InstrumentDao {
+        extends AbstractDaoImpl implements InstrumentDao {
 
     @Override
     public Instrument save(Instrument instrument) {
-        return (Instrument) super.saveToDB(instrument);
+        getSession().saveOrUpdate(instrument);
+        return instrument;
     }
 }
