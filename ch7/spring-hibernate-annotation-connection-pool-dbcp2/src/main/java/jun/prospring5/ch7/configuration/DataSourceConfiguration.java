@@ -1,14 +1,7 @@
 package jun.prospring5.ch7.configuration;
 
-import jun.prospring5.ch7.entity.Album;
-import jun.prospring5.ch7.entity.Instrument;
-import jun.prospring5.ch7.entity.Singer;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,25 +9,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.Resource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = {"jun.prospring5.ch7"})
 @EnableTransactionManagement
 @PropertySource("classpath:jdbc.properties")
 public class DataSourceConfiguration {
-
-    private static StandardServiceRegistry registry = null;
-    private static SessionFactory sessionFactory = null;
 
     @Value("${databaseDriverClassName}")
     private String driverClassName;
@@ -48,14 +34,14 @@ public class DataSourceConfiguration {
     @Value("${databasePassword}")
     private String password;
 
-    @Value("${basicDataSource.pool.initial_size}")
-    private Integer dataSourcePoolInitialSize;
+    @Value("${dataSource.dbcp2.initial_size}")
+    private Integer dbcp2InitialSize;
 
-    @Value("${basicDataSource.pool.min_idle_size}")
-    private Integer dataSourcePoolMinIdleSize;
+    @Value("${dataSource.dbcp2.min_idle_size}")
+    private Integer dbcp2MinIdleSize;
 
-    @Value("${basicDataSource.pool.max_idle_size}")
-    private Integer dataSourcePoolMaxIdleSize;
+    @Value("${dataSource.dbcp2.max_idle_size}")
+    private Integer dbcp2MaxIdleSize;
 
     @Value("${hibernate.dialect}")
     private String hibernateDialect;
@@ -71,13 +57,6 @@ public class DataSourceConfiguration {
 
     @Value("${hibernate.max_fetch_depth}")
     private Integer hibernateMaxFetchDepth;
-
-    @PreDestroy
-    void destroy() {
-        if (registry != null) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-    }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer
@@ -95,41 +74,21 @@ public class DataSourceConfiguration {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
 
-        dataSource.setInitialSize(dataSourcePoolInitialSize);
-        dataSource.setMinIdle(dataSourcePoolMinIdleSize);
-        dataSource.setMaxIdle(dataSourcePoolMaxIdleSize);
+        dataSource.setInitialSize(dbcp2InitialSize);
+        dataSource.setMinIdle(dbcp2MinIdleSize);
+        dataSource.setMaxIdle(dbcp2MaxIdleSize);
 
         return dataSource;
     }
 
     @Bean
-    public SessionFactory sessionFactory(DataSource dataSource) {
-
-        try {
-            StandardServiceRegistryBuilder registryBuilder =
-                    new StandardServiceRegistryBuilder();
-            registryBuilder.applySettings(hibernateSettings(dataSource));
-
-            registry = registryBuilder.build();
-
-            MetadataSources sources = new MetadataSources(registry);
-            List<Class<?>> classes = Arrays.asList(
-                    Singer.class,
-                    Album.class,
-                    Instrument.class);
-            classes.forEach(c -> sources.addAnnotatedClass(c));
-
-            Metadata metadata = sources.getMetadataBuilder().build();
-            sessionFactory = metadata.getSessionFactoryBuilder().build();
-
-        } catch (Exception e) {
-            if (registry != null) {
-                StandardServiceRegistryBuilder.destroy(registry);
-            }
-            throw e;
-        }
-
-        return sessionFactory;
+    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+        LocalSessionFactoryBean sessionFactoryBean =
+                new LocalSessionFactoryBean();
+        sessionFactoryBean.setPackagesToScan("jun.prospring5.ch7.entity");
+        sessionFactoryBean.setHibernateProperties(
+                hibernateProperties(dataSource));
+        return sessionFactoryBean;
     }
 
     @Bean
@@ -137,16 +96,17 @@ public class DataSourceConfiguration {
         return new HibernateTransactionManager(sessionFactory);
     }
 
-    private Map<String, Object> hibernateSettings(DataSource dataSource) {
-        Map<String, Object> settings = new HashMap<>();
+    private Properties hibernateProperties(DataSource dataSource) {
 
-        settings.put(Environment.DATASOURCE, dataSource);
-        settings.put(Environment.HBM2DDL_AUTO, "create-drop");
-        settings.put(Environment.SHOW_SQL, hibernateShowSql);
-        settings.put(Environment.FORMAT_SQL, hibernateFormatSql);
-        settings.put(Environment.USE_SQL_COMMENTS, hibernateUseSqlComments);
-        settings.put(Environment.MAX_FETCH_DEPTH, hibernateMaxFetchDepth);
+        Properties properties = new Properties();
 
-        return settings;
+        properties.put(Environment.DATASOURCE, dataSource);
+        properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+        properties.put(Environment.SHOW_SQL, hibernateShowSql);
+        properties.put(Environment.FORMAT_SQL, hibernateFormatSql);
+        properties.put(Environment.USE_SQL_COMMENTS, hibernateUseSqlComments);
+        properties.put(Environment.MAX_FETCH_DEPTH, hibernateMaxFetchDepth);
+
+        return properties;
     }
 }
