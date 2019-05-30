@@ -3,9 +3,6 @@ package jun.prospring5.ch8.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -15,8 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,20 +31,11 @@ import java.util.Set;
                         "left join fetch s.albums a " +
                         "left join fetch s.instruments i")
 })
-public class Singer implements Serializable {
+public class Singer extends AbstructEntity {
 
     public static final String FIND_ALL = "Singer.findAll";
     public static final String FIND_ONE_BY_ID = "Singer.findById";
     public static final String FIND_ALL_WITH_DETAILS = "Singer.findAllWithDetails";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Version
-    @Column(name = "version")
-    private Integer version;
 
     @Column(name = "first_name")
     private String firstName;
@@ -70,22 +56,6 @@ public class Singer implements Serializable {
             joinColumns = @JoinColumn(name = "singer_id"),
             inverseJoinColumns = @JoinColumn(name = "instrument_id"))
     private Set<Instrument> instruments = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     public String getFirstName() {
         return firstName;

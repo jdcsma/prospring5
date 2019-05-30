@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +15,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class SingerSummaryServiceImpl
+        extends AbstractService
         implements SingerSummaryService {
 
     private static Logger logger =
@@ -34,12 +33,9 @@ public class SingerSummaryServiceImpl
                     "where a.releaseDate=(select max(a2.releaseDate) " +
                     "from Album a2 where a2.singer.id=s.id)";
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
     public void displayAllSingerSummary() {
-        List result = entityManager
+        List result = getEntityManager()
                 .createQuery(FIND_ALL_SINGER_SUMMARY_UNTYPE)
                 .getResultList();
         int count = 0;
@@ -55,8 +51,8 @@ public class SingerSummaryServiceImpl
 
     @Override
     public List<SingerSummary> findAllSingerSummery() {
-        return entityManager
+        return getEntityManager()
                 .createQuery(FIND_ALL_SINGER_SUMMARY_POJO,
-                SingerSummary.class).getResultList();
+                        SingerSummary.class).getResultList();
     }
 }
