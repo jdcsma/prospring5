@@ -31,7 +31,7 @@ import java.util.Set;
                         "left join fetch s.albums a " +
                         "left join fetch s.instruments i")
 })
-public class Singer extends AbstructEntity {
+public class Singer extends AbstractEntity {
 
     public static final String FIND_ALL = "Singer.findAll";
     public static final String FIND_ONE_BY_ID = "Singer.findById";
