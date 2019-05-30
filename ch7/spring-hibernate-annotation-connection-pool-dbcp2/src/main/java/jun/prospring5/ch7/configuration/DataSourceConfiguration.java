@@ -58,6 +58,9 @@ public class DataSourceConfiguration {
     @Value("${hibernate.max_fetch_depth}")
     private Integer hibernateMaxFetchDepth;
 
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHbm2ddlAuto;
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer
     propertySourcesPlaceholderConfigurer() {
@@ -101,11 +104,12 @@ public class DataSourceConfiguration {
         Properties properties = new Properties();
 
         properties.put(Environment.DATASOURCE, dataSource);
-        properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+        properties.put(Environment.DIALECT, hibernateDialect);
         properties.put(Environment.SHOW_SQL, hibernateShowSql);
         properties.put(Environment.FORMAT_SQL, hibernateFormatSql);
         properties.put(Environment.USE_SQL_COMMENTS, hibernateUseSqlComments);
         properties.put(Environment.MAX_FETCH_DEPTH, hibernateMaxFetchDepth);
+        properties.put(Environment.HBM2DDL_AUTO, hibernateHbm2ddlAuto);
 
         return properties;
     }

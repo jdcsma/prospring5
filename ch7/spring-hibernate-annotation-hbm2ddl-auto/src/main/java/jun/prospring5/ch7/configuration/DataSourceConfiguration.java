@@ -57,6 +57,9 @@ public class DataSourceConfiguration {
     @Value("${hibernate.jdbc.fetch_size}")
     private Integer hibernateJdbcFetchSize;
 
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHbm2ddlAuto;
+
     @Bean
     public DataSource dataSource() {
 
@@ -93,13 +96,13 @@ public class DataSourceConfiguration {
         properties.put("hibernate.connection.username", username);
         properties.put("hibernate.connection.password", password);
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
         properties.put("hibernate.format_sql", hibernateFormatSql);
         properties.put("hibernate.use_sql_comments", hibernateUseSqlComments);
         properties.put("hibernate.show_sql", hibernateShowSql);
         properties.put("hibernate.max_fetch_depth", hibernateJdbcMaxFetchDepth);
         properties.put("hibernate.jdbc.batch_size", hibernateJdbcBatchSize);
         properties.put("hibernate.jdbc.fetch_size", hibernateJdbcFetchSize);
+        properties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
 
         return properties;
     }

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
@@ -34,9 +33,6 @@ public class DataSourceConfiguration {
     @Value("${databasePassword}")
     private String password;
 
-    @Value("${databaseScript}")
-    private Resource initScriptFile;
-
     @Value("${hibernate.dialect}")
     private String hibernateDialect;
 
@@ -57,6 +53,9 @@ public class DataSourceConfiguration {
 
     @Value("${hibernate.jdbc.fetch_size}")
     private Integer hibernateJdbcFetchSize;
+
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHbm2ddlAuto;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer
@@ -100,13 +99,13 @@ public class DataSourceConfiguration {
         properties.put("hibernate.connection.username", username);
         properties.put("hibernate.connection.password", password);
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
         properties.put("hibernate.format_sql", hibernateFormatSql);
         properties.put("hibernate.use_sql_comments", hibernateUseSqlComments);
         properties.put("hibernate.show_sql", hibernateShowSql);
         properties.put("hibernate.max_fetch_depth", hibernateJdbcMaxFetchDepth);
         properties.put("hibernate.jdbc.batch_size", hibernateJdbcBatchSize);
         properties.put("hibernate.jdbc.fetch_size", hibernateJdbcFetchSize);
+        properties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
 
         return properties;
     }

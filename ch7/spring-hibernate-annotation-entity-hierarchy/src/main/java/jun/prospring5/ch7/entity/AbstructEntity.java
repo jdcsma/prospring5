@@ -27,11 +27,15 @@ public abstract class AbstructEntity implements Serializable {
         return version;
     }
 
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     @Override
     public String toString() {
         return "AbstructEntity{" +
-                "id=" + id +
-                ", version=" + version +
+                "id=" + getId() +
+                ", version=" + getVersion() +
                 '}';
     }
 }
