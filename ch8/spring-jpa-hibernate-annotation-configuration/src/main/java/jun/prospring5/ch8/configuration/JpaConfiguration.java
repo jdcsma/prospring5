@@ -1,7 +1,6 @@
 package jun.prospring5.ch8.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,7 +15,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -96,6 +92,9 @@ public class JpaConfiguration {
     @Value("${hibernate.max_fetch_depth}")
     private Integer hibernateMaxFetchDepth;
 
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHbm2ddlAuto;
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer
     propertySourcesPlaceholderConfigurer() {
@@ -167,11 +166,12 @@ public class JpaConfiguration {
         Properties properties = new Properties();
 
         properties.put(Environment.DATASOURCE, dataSource);
-        properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+        properties.put(Environment.DIALECT, hibernateDialect);
         properties.put(Environment.SHOW_SQL, hibernateShowSql);
         properties.put(Environment.FORMAT_SQL, hibernateFormatSql);
         properties.put(Environment.USE_SQL_COMMENTS, hibernateUseSqlComments);
         properties.put(Environment.MAX_FETCH_DEPTH, hibernateMaxFetchDepth);
+        properties.put(Environment.HBM2DDL_AUTO, hibernateHbm2ddlAuto);
 
         return properties;
     }
