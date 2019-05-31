@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 
 import java.util.Date;
@@ -33,9 +34,14 @@ public class DataSourceTest {
     @Before
     public void jdbcSetup() {
 
+//        AnnotationConfigApplicationContext context =
+//                new AnnotationConfigApplicationContext(
+//                        JpaConfiguration.class);
+
         AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext(
-                        JpaConfiguration.class);
+                new AnnotationConfigApplicationContext();
+        context.register(JpaConfiguration.class, DatabaseInitializer.class);
+        context.refresh();
 
         appContext = context;
 
@@ -49,6 +55,7 @@ public class DataSourceTest {
     public void jdbcTest() {
 
         showSingers(singerService.findAll());
+        showSingers(singerService.findAllByNativeQuery());
         showSingersWithAlbum(singerService.findAllWithDetails());
 
         Singer singer = new Singer();

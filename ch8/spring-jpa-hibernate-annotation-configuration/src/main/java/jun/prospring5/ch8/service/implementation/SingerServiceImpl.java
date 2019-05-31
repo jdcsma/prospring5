@@ -16,6 +16,9 @@ public class SingerServiceImpl
         extends AbstractService
         implements SingerService {
 
+    private static final String FIND_ALL_SINGER_NATIVE_QUERY =
+            "select id,first_name,last_name,birth_date,version from singer";
+
     @Transactional(readOnly = true)
     @Override
     public List<Singer> findAll() {
@@ -32,10 +35,13 @@ public class SingerServiceImpl
                 .getResultList();
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     @Override
     public List<Singer> findAllByNativeQuery() {
-        throw new NotImplementedException("findAllByNativeQuery");
+        return (List<Singer>) getEntityManager()
+                .createNativeQuery(FIND_ALL_SINGER_NATIVE_QUERY, Singer.class)
+                .getResultList();
     }
 
     @Transactional(readOnly = true)

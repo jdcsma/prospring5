@@ -1,4 +1,4 @@
-package jun.prospring5.ch8.configuration;
+package jun.prospring5.ch8;
 
 import jun.prospring5.ch8.entity.AlbumBuilder;
 import jun.prospring5.ch8.entity.Instrument;

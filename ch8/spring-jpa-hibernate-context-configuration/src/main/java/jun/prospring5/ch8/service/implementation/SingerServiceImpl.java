@@ -14,15 +14,17 @@ import java.util.List;
 @Service("singerService")
 @Repository
 @Transactional
-public class SingerServiceImpl implements SingerService {
+public class SingerServiceImpl
+        extends AbstractService
+        implements SingerService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private static final String ALL_SINGER_NATIVE_QUERY =
+            "select id,first_name,last_name,birth_date,version from singer";
 
     @Transactional(readOnly = true)
     @Override
     public List<Singer> findAll() {
-        return entityManager
+        return getEntityManager()
                 .createNamedQuery(Singer.FIND_ALL, Singer.class)
                 .getResultList();
     }
@@ -30,21 +32,24 @@ public class SingerServiceImpl implements SingerService {
     @Transactional(readOnly = true)
     @Override
     public List<Singer> findAllWithDetails() {
-        return entityManager.createNamedQuery(
+        return getEntityManager().createNamedQuery(
                 Singer.FIND_ALL_WITH_DETAILS, Singer.class)
+                .getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+    @Override
+    public List<Singer> findAllByNativeQuery() {
+        return (List<Singer>) getEntityManager()
+                .createNativeQuery(ALL_SINGER_NATIVE_QUERY, Singer.class)
                 .getResultList();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Singer> findAllByNativeQuery() {
-        throw new NotImplementedException("findAllByNativeQuery");
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public Singer findById(Long id) {
-        return entityManager.createNamedQuery(
+        return getEntityManager().createNamedQuery(
                 Singer.FIND_ONE_BY_ID, Singer.class)
                 .setParameter("id", id)
                 .getSingleResult();
@@ -53,19 +58,19 @@ public class SingerServiceImpl implements SingerService {
     @Override
     public Singer save(Singer singer) {
         if (singer.getId() == null) {
-            entityManager.persist(singer);
+            getEntityManager().persist(singer);
         } else {
-            entityManager.merge(singer);
+            getEntityManager().merge(singer);
         }
         return singer;
     }
 
     @Override
     public void delete(Singer singer) {
-        boolean contains = entityManager.contains(singer);
+        boolean contains = getEntityManager().contains(singer);
         if (!contains) {
-            singer = entityManager.merge(singer);
+            singer = getEntityManager().merge(singer);
         }
-        entityManager.remove(singer);
+        getEntityManager().remove(singer);
     }
 }

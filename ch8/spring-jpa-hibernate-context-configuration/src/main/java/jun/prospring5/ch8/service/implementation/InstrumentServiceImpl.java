@@ -12,14 +12,13 @@ import javax.persistence.PersistenceContext;
 @Service("instrumentService")
 @Repository
 @Transactional
-public class InstrumentServiceImpl implements InstrumentService {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public class InstrumentServiceImpl
+        extends AbstractService
+        implements InstrumentService {
 
     @Override
     public Instrument save(Instrument instrument) {
-        entityManager.persist(instrument);
+        getEntityManager().persist(instrument);
         return instrument;
     }
 }

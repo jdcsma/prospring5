@@ -141,15 +141,12 @@ public class JpaConfiguration {
     @Bean
     public EntityManagerFactory entityManagerFactory() {
 
-        DataSource dataSource = dataSource();
-        JpaVendorAdapter vendorAdapter = jpaVendorAdapter();
-
         LocalContainerEntityManagerFactoryBean factoryBean
                 = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setPackagesToScan("jun.prospring5.ch8.entity");
-//        factoryBean.setDataSource(dataSource());
-        factoryBean.setJpaVendorAdapter(vendorAdapter);
-        factoryBean.setJpaProperties(hibernateProperties(dataSource));
+        factoryBean.setDataSource(dataSource());
+        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+        factoryBean.setJpaProperties(hibernateProperties());
         factoryBean.afterPropertiesSet();
         EntityManagerFactory managerFactory =
                 factoryBean.getNativeEntityManagerFactory();
@@ -161,11 +158,10 @@ public class JpaConfiguration {
         return new JpaTransactionManager(entityManagerFactory());
     }
 
-    private Properties hibernateProperties(DataSource dataSource) {
+    private Properties hibernateProperties() {
 
         Properties properties = new Properties();
 
-        properties.put(Environment.DATASOURCE, dataSource);
         properties.put(Environment.DIALECT, hibernateDialect);
         properties.put(Environment.SHOW_SQL, hibernateShowSql);
         properties.put(Environment.FORMAT_SQL, hibernateFormatSql);

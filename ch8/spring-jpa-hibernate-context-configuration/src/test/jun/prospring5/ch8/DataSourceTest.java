@@ -49,6 +49,7 @@ public class DataSourceTest {
     public void jdbcTest() {
 
         showSingers(singerService.findAll());
+        showSingers(singerService.findAllByNativeQuery());
         showSingersWithAlbum(singerService.findAllWithDetails());
 
         Singer singer = new Singer();
