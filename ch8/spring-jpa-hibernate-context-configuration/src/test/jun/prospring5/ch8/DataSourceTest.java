@@ -87,9 +87,7 @@ public class DataSourceTest {
 
         List<SingerSummary> singerSummaries = singerSummaryService.findAllSingerSummery();
 
-        for (SingerSummary summary : singerSummaries) {
-            logger.info(summary.toString());
-        }
+        singerSummaries.forEach(s -> logger.info(s.toString()));
     }
 
     @After
@@ -98,15 +96,12 @@ public class DataSourceTest {
     }
 
     private void showSingers(List<Singer> singers) {
-        singers.forEach(s -> {
-            logger.info(s.toString());
-        });
+        singers.forEach(s -> logger.info(s.toString()));
     }
 
     private void showSingersWithAlbum(List<Singer> singers) {
         singers.forEach(s -> {
             logger.info(s.toString());
-
             s.getAlbums().forEach(a -> logger.info("    " + a.toString()));
             s.getInstruments().forEach(i -> logger.info("    " + i.toString()));
         });
