@@ -14,8 +14,11 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <!-- same as @EnableTransactionManagement -->
     <tx:annotation-driven/>
-    <context:annotation-config/>
+    <!--
+        The <context:component-scan/> tag implies the effects of the '<context:annotation-config/>' tag.
+    -->
     <context:component-scan base-package="jun.prospring5.ch8"/>
 
     <bean id="dataSource"

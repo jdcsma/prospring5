@@ -34,13 +34,13 @@ public class DataSourceTest {
     @Before
     public void jdbcSetup() {
 
-//        AnnotationConfigApplicationContext context =
-//                new AnnotationConfigApplicationContext(
-//                        JpaConfiguration.class);
+        Class<?>[] configurations = new Class[]{
+                JpaConfiguration.class, DatabaseInitializer.class
+        };
 
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext();
-        context.register(JpaConfiguration.class, DatabaseInitializer.class);
+        context.register(configurations);
         context.refresh();
 
         appContext = context;
