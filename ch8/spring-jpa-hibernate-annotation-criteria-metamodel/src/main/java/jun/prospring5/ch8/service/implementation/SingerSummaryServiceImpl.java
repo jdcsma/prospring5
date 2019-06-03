@@ -84,7 +84,7 @@ public class SingerSummaryServiceImpl
 
         Predicate criteria = criteriaBuilder.conjunction();
         Predicate p = criteriaBuilder.equal(
-                albumRoot.get(Album_.id),
+                albumRoot.get(Album_.singer).get(Singer_.id),
                 singerRoot.get(Singer_.id));
         criteria = criteriaBuilder.and(criteria, p);
         subQuery.where(criteria);
@@ -145,7 +145,7 @@ public class SingerSummaryServiceImpl
 
         Predicate criteria = criteriaBuilder.conjunction();
         Predicate p = criteriaBuilder.equal(
-                albumRoot.get(Album_.id),
+                albumRoot.get(Album_.singer).get(Singer_.id),
                 singerRoot.get(Singer_.id));
         criteria = criteriaBuilder.and(criteria, p);
         subQuery.where(criteria);
