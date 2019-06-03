@@ -77,6 +77,13 @@ public class DataSourceTest {
                 instrumentService.findAllByCriteriaQuery();
         instruments.forEach(i -> logger.info(i.toString()));
 
+        logger.info("--- instruments: instrumentService.findByCriteriaQuery()");
+        instruments.forEach(i -> {
+            instrumentService.findByCriteriaQuery(
+                    i.getInstrumentId()).forEach(
+                            ii -> logger.info(ii.toString()));
+        });
+
         logger.info("--- showSingers: singerService.findAll()");
         showSingers(singerService.findAll());
         logger.info("--- showSingers: singerService.findAllWithDetails()");
