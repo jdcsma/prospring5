@@ -23,7 +23,7 @@
 
     <bean id="dataSource"
           class="com.alibaba.druid.pool.DruidDataSource"
-          init-method="init" destroy-method="clone"
+          init-method="init" destroy-method="close"
           p:driverClassName="#{jdbc.databaseDriverClassName}"
           p:url="#{jdbc.databaseUrl}"
           p:username="#{jdbc.databaseUsername}"
