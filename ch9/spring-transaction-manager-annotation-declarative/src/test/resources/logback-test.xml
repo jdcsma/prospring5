@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="jun.prospring5.ch9" level="DEBUG"/>
+    <logger name="org.springframework" level="OFF"/>
+    <logger name="org.springframework.orm" level="DEBUG"/>
+    <logger name="org.hibernate" level="OFF"/>
+    <logger name="org.jboss.logging" level="OFF"/>
+    <logger name="com.alibaba.druid" level="OFF"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
