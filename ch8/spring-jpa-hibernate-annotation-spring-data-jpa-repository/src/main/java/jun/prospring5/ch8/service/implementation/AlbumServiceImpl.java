@@ -5,15 +5,13 @@ import jun.prospring5.ch8.entity.Singer;
 import jun.prospring5.ch8.repository.AlbumRepository;
 import jun.prospring5.ch8.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("albumService")
-@Repository
 @Transactional
+@Service("albumService")
 public class AlbumServiceImpl implements AlbumService {
 
     @Autowired

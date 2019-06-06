@@ -4,7 +4,6 @@ import jun.prospring5.ch8.entity.Singer;
 import jun.prospring5.ch8.entity.Singer_;
 import jun.prospring5.ch8.service.SingerService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +14,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-@Service("singerService")
-@Repository
 @Transactional
+@Service("singerService")
 public class SingerServiceImpl
         extends AbstractService
         implements SingerService {

@@ -4,16 +4,14 @@ import jun.prospring5.ch8.service.SingerSummaryService;
 import jun.prospring5.ch8.view.SingerSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
 
-@Service("singerSummaryService")
-@Repository
 @Transactional
+@Service("singerSummaryService")
 public class SingerSummaryServiceImpl
         extends AbstractService
         implements SingerSummaryService {

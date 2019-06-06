@@ -2,16 +2,13 @@ package jun.prospring5.ch8.service.implementation;
 
 import jun.prospring5.ch8.entity.Singer;
 import jun.prospring5.ch8.service.SingerService;
-import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("singerService")
-@Repository
 @Transactional
+@Service("singerService")
 public class SingerServiceImpl
         extends AbstractService
         implements SingerService {

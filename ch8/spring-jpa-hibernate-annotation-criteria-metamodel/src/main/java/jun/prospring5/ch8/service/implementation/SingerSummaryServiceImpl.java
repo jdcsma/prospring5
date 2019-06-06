@@ -6,19 +6,14 @@ import jun.prospring5.ch8.entity.Singer;
 import jun.prospring5.ch8.entity.Singer_;
 import jun.prospring5.ch8.service.SingerSummaryService;
 import jun.prospring5.ch8.view.SingerSummary;
-import org.apache.commons.lang3.NotImplementedException;
-import org.hibernate.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CompoundSelection;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -28,9 +23,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-@Service("singerSummaryService")
-@Repository
 @Transactional
+@Service("singerSummaryService")
 public class SingerSummaryServiceImpl
         extends AbstractService
         implements SingerSummaryService {
