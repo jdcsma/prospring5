@@ -2,6 +2,7 @@ package jun.prospring5.ch8;
 
 import jun.prospring5.ch8.configuration.JpaConfiguration;
 import jun.prospring5.ch8.entity.Singer;
+import jun.prospring5.ch8.entity.SingerBuilder;
 import jun.prospring5.ch8.service.SingerService;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -46,15 +47,14 @@ public class DataSourceTest {
 
         logger.info("--- showSingers: add singer");
 
-        Singer singer = new Singer();
-        singer.setFirstName("Ed");
-        singer.setLastName("Sheeran");
-        singer.setBirthDate(new Date((
-                new GregorianCalendar(
-                        1991, 2, 1991)
-                        .getTime().getTime())));
-
-        singer = singerService.save(singer);
+        Singer singer = singerService.save(new SingerBuilder()
+                .setFirstName("Ed")
+                .setLastName("Sheeran")
+                .setBirthDate(new Date((
+                        new GregorianCalendar(
+                                1991, 2, 1991)
+                                .getTime().getTime())))
+                .build());
         showSingers(singerService.findAll());
 
         logger.info("--- showSingers: update singer");
