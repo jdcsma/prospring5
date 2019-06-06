@@ -4,7 +4,6 @@ import jun.prospring5.ch9.entity.Singer;
 import jun.prospring5.ch9.repository.SingerRepository;
 import jun.prospring5.ch9.service.SingerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service("singerService")
-@Repository
 @Transactional
+@Service("singerService")
 public class SingerServiceImpl
         implements SingerService {
 
