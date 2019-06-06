@@ -6,14 +6,14 @@ public class SingerSummary implements Serializable {
 
     private String firstName;
     private String lastName;
-    private String latestalbum;
+    private String latestAlbum;
 
     public SingerSummary(
             String firstName, String lastName,
-            String latestalbum) {
+            String latestAlbum) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.latestalbum = latestalbum;
+        this.latestAlbum = latestAlbum;
     }
 
     public String getFirstName() {
@@ -32,12 +32,12 @@ public class SingerSummary implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getLatestalbum() {
-        return latestalbum;
+    public String getLatestAlbum() {
+        return latestAlbum;
     }
 
-    public void setLatestalbum(String latestalbum) {
-        this.latestalbum = latestalbum;
+    public void setLatestAlbum(String latestAlbum) {
+        this.latestAlbum = latestAlbum;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SingerSummary implements Serializable {
         return "SingerSummary{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", latestalbum='" + latestalbum + '\'' +
+                ", latestAlbum='" + latestAlbum + '\'' +
                 '}';
     }
 }

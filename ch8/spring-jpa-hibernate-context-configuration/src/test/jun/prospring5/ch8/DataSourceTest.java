@@ -93,7 +93,9 @@ public class DataSourceTest {
 
     @After
     public void jdbcDown() {
-        appContext.close();
+        if (appContext != null) {
+            appContext.close();
+        }
     }
 
     private void showSingers(List<Singer> singers) {

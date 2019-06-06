@@ -82,7 +82,8 @@ public class DataSourceTest {
             e.printStackTrace();
         }
 
-        singer.setFirstName("John Clayton");
+        singer.setFirstName("John");
+        singer.setLastName("Clayton");
         singer = singerService.save(singer);
         showSingersWithAlbum(singerService.findAllWithDetails());
 

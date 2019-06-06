@@ -54,7 +54,7 @@ public class Album extends AbstractEntity {
                 ", title='" + getTitle() + '\'' +
                 ", releaseDate=" + getReleaseDate() +
                 ", singer='" + getSinger().getFirstName() +
-                    " " + getSinger().getLastName() + "\'" +
+                " " + getSinger().getLastName() + "\'" +
                 '}';
     }
 }
