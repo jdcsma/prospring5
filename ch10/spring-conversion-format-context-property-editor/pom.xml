@@ -13,9 +13,9 @@
     </parent>
 
     <groupId>jun.prospring5.ch9</groupId>
-    <artifactId>spring-conversion-format-property-editor</artifactId>
+    <artifactId>spring-conversion-format-context-property-editor</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>spring-conversion-format-property-editor</name>
+    <name>spring-conversion-format-context-property-editor</name>
     <packaging>jar</packaging>
 
 </project>
