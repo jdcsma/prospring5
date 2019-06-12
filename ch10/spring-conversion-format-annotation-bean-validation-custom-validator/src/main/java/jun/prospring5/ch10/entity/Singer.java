@@ -52,6 +52,10 @@ public class Singer {
         this.gender = gender;
     }
 
+    public boolean isCountrySinger() {
+        return getGenre() == Genre.COUNTRY;
+    }
+
     @Override
     public String toString() {
         return "Singer{" +
