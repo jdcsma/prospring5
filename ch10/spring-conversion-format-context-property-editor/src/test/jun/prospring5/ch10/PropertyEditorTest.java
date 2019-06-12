@@ -17,7 +17,7 @@ public class PropertyEditorTest {
     private GenericApplicationContext appContext;
 
     @Before
-    public void jdbcSetup() {
+    public void setup() {
 
         GenericXmlApplicationContext context =
                 new GenericXmlApplicationContext();
@@ -28,7 +28,7 @@ public class PropertyEditorTest {
     }
 
     @Test
-    public void jdbcTest() {
+    public void test() {
 
         Singer singerA = (Singer) appContext.getBean("eric");
         logger.info("eric info:" + singerA);
@@ -37,7 +37,7 @@ public class PropertyEditorTest {
     }
 
     @After
-    public void jdbcDown() {
+    public void clean() {
         if (appContext != null) {
             appContext.close();
         }
