@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- same as @EnableTransactionManagement -->
+    <tx:annotation-driven/>
+
+    <!--
+        The <context:component-scan/> tag implies the effects of the '<context:annotation-config/>' tag.
+    -->
+    <context:component-scan base-package="jun.prospring5.ch11">
+        <context:exclude-filter
+                type="annotation"
+                expression="org.springframework.context.annotation.Configuration"/>
+    </context:component-scan>
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <jpa:repositories base-package="jun.prospring5.ch11"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
+
+    <bean id="dataSource"
+          class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close"
+          p:driverClassName="${databaseDriverClassName}"
+          p:url="${databaseUrl}"
+          p:username="${databaseUsername}"
+          p:password="${databasePassword}"
+          p:filters="${druid.filters}"
+          p:initialSize="${druid.initialSize}"
+          p:maxActive="${druid.maxActive}"
+          p:maxWait="${druid.maxWait}"
+          p:minIdle="${druid.minIdle}"
+          p:timeBetweenEvictionRunsMillis="${druid.timeBetweenEvictionRunsMillis}"
+          p:minEvictableIdleTimeMillis="${druid.minEvictableIdleTimeMillis}"
+          p:validationQuery="${druid.validationQuery}"
+          p:testWhileIdle="${druid.testWhileIdle}"
+          p:testOnBorrow="${druid.testOnBorrow}"
+          p:testOnReturn="${druid.testOnReturn}"
+          p:poolPreparedStatements="${druid.poolPreparedStatements}"
+          p:maxPoolPreparedStatementPerConnectionSize="${druid.maxPoolPreparedStatementPerConnectionSize}"/>
+
+    <bean id="jpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="packagesToScan" value="jun.prospring5.ch11.entity"/>
+        <property name="jpaProperties" ref="hibernateProperties"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory"/>
+
+    <util:properties id="hibernateProperties">
+        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+        <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+        <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+        <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+        <prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
+        <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+    </util:properties>
+
+    <task:scheduler id="carScheduler" pool-size="10"/>
+
+    <task:scheduled-tasks scheduler="carScheduler">
+        <task:scheduled ref="carService" method="updateCarAgeJob" fixed-delay="3000"/>
+        <task:scheduled ref="carService" method="updateCarAgeJob" cron="10 0"/>
+    </task:scheduled-tasks>
+
+</beans>
