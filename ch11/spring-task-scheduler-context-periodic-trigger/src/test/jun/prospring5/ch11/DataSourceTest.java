@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.support.PeriodicTrigger;
 
 public class DataSourceTest {
 
@@ -39,7 +40,7 @@ public class DataSourceTest {
 
         waitingScheduledJobToEnd(carService);
 
-        logger.info("Starting update with scheduler.scheduleWithFixedDelay ...");
+        logger.info("Starting update with scheduler.schedule(Runnable, PeriodicTrigger) ...");
 
         carService.prepareUpdateCarAgeJob();
 
@@ -47,8 +48,8 @@ public class DataSourceTest {
         //     <task:scheduled-tasks scheduler="carScheduler">
         //         <task:scheduled ref="carService" method="updateCarAgeJob" fixed-delay="3000"/>
         //     </task:scheduled-tasks>
-        scheduler.scheduleWithFixedDelay(
-                carService::updateCarAgeJob, 3000);
+        scheduler.schedule(carService::updateCarAgeJob,
+                new PeriodicTrigger(3_000));
 
         waitingScheduledJobToEnd(carService);
     }
