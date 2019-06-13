@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 
 public class DataSourceTest {
 
@@ -34,6 +35,23 @@ public class DataSourceTest {
 
         CarService carService = appContext.getBean(
                 "carService", CarService.class);
+
+
+        TaskScheduler scheduler = appContext.getBean(
+                "carScheduler", TaskScheduler.class);
+
+        waitingScheduledJobToEnd(carService);
+
+        logger.info("Starting update with scheduler.schedule(Runnable, CronTrigger) ...");
+
+        carService.prepareUpdateCarAgeJob();
+
+        // This code same as:
+        //     <task:scheduled-tasks scheduler="carScheduler">
+        //         <task:scheduled ref="carService" method="updateCarAgeJob" cron="0 * * * * *"/>
+        //     </task:scheduled-tasks>
+        scheduler.schedule(carService::updateCarAgeJob,
+                new CronTrigger("0 * * * * *"));
 
         waitingScheduledJobToEnd(carService);
     }
