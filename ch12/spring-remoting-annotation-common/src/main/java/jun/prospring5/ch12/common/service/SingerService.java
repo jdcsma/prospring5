@@ -10,7 +10,7 @@ public interface SingerService {
 
     List<Singer> findByFirstName(String firstName);
 
-    Singer findById(Long id);
+    Singer findById(long id);
 
     Singer save(Singer singer);
 
