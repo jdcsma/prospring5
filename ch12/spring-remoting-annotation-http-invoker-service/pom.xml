@@ -6,9 +6,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jun.prospring5.ch12</groupId>
-    <artifactId>spring-remoting-annotation-http-invoker-exporter</artifactId>
+    <artifactId>spring-remoting-annotation-http-invoker-service</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>spring-remoting-annotation-http-invoker-exporter</name>
+    <name>spring-remoting-annotation-http-invoker-service</name>
     <packaging>war</packaging>
 
     <properties>
