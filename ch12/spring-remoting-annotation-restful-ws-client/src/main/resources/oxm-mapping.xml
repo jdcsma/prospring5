@@ -1,0 +1,40 @@
+<mapping>
+
+    <field-handler name="dateHandler"
+                   class="jun.prospring5.ch12.common.domain.handler.DateTimeFieldHandler">
+        <param name="date-format" value="yyyy-MM-dd"/>
+    </field-handler>
+
+    <class name="jun.prospring5.ch12.common.domain.Singers">
+        <field name="singers"
+               type="jun.prospring5.ch12.common.entity.Singer"
+               collection="arraylist">
+            <bind-xml name="singer"/>
+        </field>
+    </class>
+
+    <class name="jun.prospring5.ch12.common.entity.Singer"
+           identify="id">
+        <map-to xml="singer"/>
+
+        <field name="id" type="long">
+            <bind-xml name="id" node="element"/>
+        </field>
+
+        <field name="firstName" type="string">
+            <bind-xml name="firstName" node="element"/>
+        </field>
+
+        <field name="lastName" type="string">
+            <bind-xml name="lastName" node="element"/>
+        </field>
+
+        <field name="birthDate" type="string" handler="dateHandler">
+            <bind-xml name="birthDate" node="element"/>
+        </field>
+
+        <field name="version" type="integer">
+            <bind-xml name="version" node="element"/>
+        </field>
+    </class>
+</mapping>
