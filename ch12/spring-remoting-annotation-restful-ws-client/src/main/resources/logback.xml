@@ -5,8 +5,8 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <property name="APP_NAME" value="prospring5" />
-    <property name="LOG_HOME" value="${catalina.base}/${log.dir:-logs}/${APP_NAME}" />
+    <property name="APP_NAME" value="restful-ws-client" />
+    <property name="LOG_HOME" value="${log.dir:-logs}/${APP_NAME}" />
     <property name="ENCODER_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n" />
     <property name="DATE_PATTERN" value="yyyy-MM-dd"/>
 

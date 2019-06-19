@@ -1,6 +1,5 @@
 package jun.prospring5.ch12.configuration;
 
-
 import jun.prospring5.ch12.common.factory.HttpMessageConverterFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

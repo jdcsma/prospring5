@@ -1,7 +1,6 @@
 package jun.prospring5.ch12.configuration;
 
 import jun.prospring5.ch12.common.factory.HttpMessageConverterFactory;
-import org.apache.http.HttpMessage;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.castor.CastorMappingException;
 import org.springframework.oxm.castor.CastorMarshaller;
 import org.springframework.stereotype.Component;
