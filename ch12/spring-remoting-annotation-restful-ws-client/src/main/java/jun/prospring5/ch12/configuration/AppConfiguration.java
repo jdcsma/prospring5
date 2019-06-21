@@ -1,7 +1,12 @@
 package jun.prospring5.ch12.configuration;
 
 import jun.prospring5.ch12.common.factory.HttpMessageConverterFactory;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -30,17 +35,34 @@ public class AppConfiguration {
     private ApplicationContext context;
 
     @Bean
-    public HttpComponentsClientHttpRequestFactory httpRequestFactory() {
+    public Credentials credentials() {
+        return new UsernamePasswordCredentials(
+                "prospring5", "prospring5");
+    }
+
+    @Bean
+    public CredentialsProvider provider(Credentials credentials) {
+        BasicCredentialsProvider provider = new BasicCredentialsProvider();
+        provider.setCredentials(AuthScope.ANY, credentials);
+        return provider;
+    }
+
+    @Bean
+    public HttpComponentsClientHttpRequestFactory
+    httpRequestFactory(CredentialsProvider provider) {
         HttpComponentsClientHttpRequestFactory factory =
                 new HttpComponentsClientHttpRequestFactory();
-        HttpClient client = HttpClientBuilder.create().build();
+        HttpClient client = HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(provider)
+                .build();
         factory.setHttpClient(client);
         return factory;
     }
 
     @Bean
-    public RestTemplate restTemplate(CastorMarshaller castorMarshaller) {
-        RestTemplate template = new RestTemplate(httpRequestFactory());
+    public RestTemplate restTemplate(
+            CastorMarshaller castorMarshaller, CredentialsProvider provider) {
+        RestTemplate template = new RestTemplate(httpRequestFactory(provider));
         List<HttpMessageConverter<?>> converters = new ArrayList<>();
         try {
             converters.add(HttpMessageConverterFactory

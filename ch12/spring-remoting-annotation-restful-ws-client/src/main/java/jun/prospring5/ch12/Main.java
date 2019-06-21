@@ -16,7 +16,7 @@ public class Main {
     private static final Logger logger =
             LoggerFactory.getLogger(Main.class);
 
-    private static final String URL_ROOT = "http://localhost:8080/singer";
+    private static final String URL_ROOT = "http://localhost:8080/api/singer";
     private static final String URL_GET_ALL_SINGERS = URL_ROOT + "/listdata";
     private static final String URL_GET_SINGER_BY_ID = URL_ROOT + "/id/{id}";
     private static final String URL_GET_SINGER_BY_FIRST_NAME = URL_ROOT + "/firstName/{firstName}";

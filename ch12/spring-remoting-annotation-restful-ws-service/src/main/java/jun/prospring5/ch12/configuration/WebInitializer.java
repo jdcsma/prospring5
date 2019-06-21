@@ -8,7 +8,8 @@ public class WebInitializer extends
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
-                JpaConfiguration.class
+                JpaConfiguration.class,
+                WebSecurityConfiguration.class
         };
     }
 
@@ -22,7 +23,7 @@ public class WebInitializer extends
     @Override
     protected String[] getServletMappings() {
         return new String[]{
-            "/"
+            "/api/*", "/rest/*"
         };
     }
 }
