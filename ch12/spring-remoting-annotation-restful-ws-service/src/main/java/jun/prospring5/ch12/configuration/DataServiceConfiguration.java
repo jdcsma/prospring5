@@ -24,7 +24,7 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = {"jun.prospring5.ch12"})
 @EnableTransactionManagement
 @PropertySource("classpath:jdbc.properties")
-public class JpaConfiguration {
+public class DataServiceConfiguration {
 
     @Value("${databaseDriverClassName}")
     private String driverClassName;

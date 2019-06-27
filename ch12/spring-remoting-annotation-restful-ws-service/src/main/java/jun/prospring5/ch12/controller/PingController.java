@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.PostConstruct;
 
 @Controller
+@RequestMapping(value = "/ping")
 public class PingController {
 
     private static final Logger logger =
@@ -20,7 +22,8 @@ public class PingController {
         logger.info("PingController - init:");
     }
 
-    @RequestMapping(value = "/ping/{message}")
+    @RequestMapping(value = "/{message}",
+            method = RequestMethod.GET)
     @ResponseBody
     public String pong(@PathVariable String message) {
         return message;

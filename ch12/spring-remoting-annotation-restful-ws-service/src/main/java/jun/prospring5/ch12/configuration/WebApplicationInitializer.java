@@ -8,7 +8,7 @@ public class WebApplicationInitializer extends
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
-                JpaConfiguration.class,
+                DataServiceConfiguration.class,
                 SecurityWebConfiguration.class
         };
     }
@@ -23,7 +23,7 @@ public class WebApplicationInitializer extends
     @Override
     protected String[] getServletMappings() {
         return new String[]{
-            "/api/*", "/rest/*"
+            "/api/*"
         };
     }
 }

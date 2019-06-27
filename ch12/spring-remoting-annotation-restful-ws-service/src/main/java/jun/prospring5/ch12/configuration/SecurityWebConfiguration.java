@@ -18,7 +18,11 @@ public class SecurityWebConfiguration
         auth.inMemoryAuthentication()
                 .withUser("prospring5")
                 .password("{noop}prospring5")
-                .roles("REMOTE");
+                .roles("REMOTE")
+                .and()
+                .withUser("tester")
+                .password("{noop}tester")
+                .roles("TESTER");
     }
 
     @Override
@@ -33,9 +37,9 @@ public class SecurityWebConfiguration
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/singer/**").hasRole("REMOTE").anyRequest().authenticated()
-                .antMatchers("/rest/test/**").anonymous().anyRequest().permitAll()
-//                .anyRequest().permitAll()
+                .antMatchers("/api/singer/**").hasRole("REMOTE")
+                .antMatchers("/api/ping/**").hasRole("TESTER")
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .and()
