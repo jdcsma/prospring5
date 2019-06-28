@@ -2,9 +2,10 @@ package jun.prospring5.ch16.util;
 
 import jun.prospring5.ch16.entity.Singer;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SingerGrid {
+public class SingerGrid implements Serializable {
     private int totalPages;
     private int currentPage;
     private long totalRecords;

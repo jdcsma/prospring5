@@ -1,5 +1,7 @@
 package jun.prospring5.ch16.configuration;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jun.prospring5.ch16.util.DateFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -27,6 +32,8 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 @Configuration
@@ -171,5 +178,26 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Bean
     public DateFormatter dateFormatter() {
         return new DateFormatter();
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(newJsonHttpMessageConverter(newJsonObjectMapper()));
+    }
+
+    public static MappingJackson2HttpMessageConverter
+    newJsonHttpMessageConverter(ObjectMapper objectMapper) {
+        MappingJackson2HttpMessageConverter converter =
+                new MappingJackson2HttpMessageConverter(
+                        objectMapper);
+        return converter;
+    }
+
+    public static ObjectMapper newJsonObjectMapper() {
+        return Jackson2ObjectMapperBuilder.json()
+                .indentOutput(true)
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
+                .build();
     }
 }
