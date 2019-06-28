@@ -82,6 +82,13 @@ public class WebConfiguration implements WebMvcConfigurer {
         return validator();
     }
 
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        MappingJackson2HttpMessageConverter
+                converter = jsonHttpMessageConverter();
+        converters.add(converter);
+    }
+
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
@@ -180,20 +187,15 @@ public class WebConfiguration implements WebMvcConfigurer {
         return new DateFormatter();
     }
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(newJsonHttpMessageConverter(newJsonObjectMapper()));
-    }
-
-    public static MappingJackson2HttpMessageConverter
-    newJsonHttpMessageConverter(ObjectMapper objectMapper) {
+    @Bean
+    public MappingJackson2HttpMessageConverter jsonHttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter =
                 new MappingJackson2HttpMessageConverter(
-                        objectMapper);
+                        objectMapper());
         return converter;
     }
 
-    public static ObjectMapper newJsonObjectMapper() {
+    public static ObjectMapper objectMapper() {
         return Jackson2ObjectMapperBuilder.json()
                 .indentOutput(true)
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
